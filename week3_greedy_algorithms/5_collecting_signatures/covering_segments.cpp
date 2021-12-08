@@ -12,6 +12,7 @@ struct Segment {
 vector<int> optimal_points(vector<Segment> &segments) {
   vector<int> points;
   //write your code here
+  std::sort(segments.begin(), segments.end());
   for (size_t i = 0; i < segments.size(); ++i) {
     points.push_back(segments[i].start);
     points.push_back(segments[i].end);
