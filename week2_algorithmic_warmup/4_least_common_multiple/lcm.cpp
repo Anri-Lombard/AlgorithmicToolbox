@@ -8,11 +8,11 @@ long long lcm_naive(int a, int b) {
   return (long long) a * b;
 }
 
-int euclid_gcd(int a, int b) {
+long long euclid_gcd(long long a, long long b) {
   if (b == 0)
     return a;
 
-  int a_prime = a % b;
+  long long a_prime = a % b;
 
   return euclid_gcd(b, a_prime);
 }
