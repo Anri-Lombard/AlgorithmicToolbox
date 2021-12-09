@@ -8,7 +8,15 @@ using std::max;
 
 int compute_min_refills(int dist, int tank, vector<int> & stops) {
     // write your code here
-    return -1;
+    int numRefills = 0, currentRefill = 0;
+    while (currentRefill <= stops.size()) {
+        int lastRefill = currentRefill;
+        while (currentRefill <= stops.size() && stops[currentRefill + 1] - stops[lastRefill] < dist)
+            currentRefill += 1;
+        if (currentRefill == lastRefill) return -1;
+        if (currentRefill <= stops.size()) numRefills += 1;
+    }
+    return numRefills;
 }
 
 
