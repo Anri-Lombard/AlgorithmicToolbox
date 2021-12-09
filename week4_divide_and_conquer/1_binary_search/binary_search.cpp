@@ -5,10 +5,10 @@
 using std::vector;
 
 int binary_search(const vector<int> &a, int x) {
-  int low = 0, high = (int)a.size(); 
+  int low = 0, high = a.size() - 1; 
   //write your code here
   while (high >= low) {
-    int mid = (low + high)/2;
+    int mid = low + (high - low)/2;
     if (a[mid] == x) return mid;
     else if (a[mid] < x) low = mid + 1;
     else high = mid - 1;
