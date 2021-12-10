@@ -1,25 +1,43 @@
 #include <iostream>
+#include <cmath>
+#include <string>
 #include <vector>
+#include <algorithm>
+#include <iomanip>
+#include <vector>
+#include <functional>
+#define endl '\n'
+using namespace std;
 
 using std::vector;
 
-int optimal_weight(int W, const vector<int> &w) {
-  //write your code here
-  int current_weight = 0;
-  for (size_t i = 0; i < w.size(); ++i) {
-    if (current_weight + w[i] <= W) {
-      current_weight += w[i];
-    }
-  }
-  return current_weight;
+int KnapSack_amount(int W, vector<int> value, vector<int> wt, int num) {
+	
+	vector<vector<int>>  k_matrix(num + 1,vector<int>(W + 1));
+	for (int a = 0; a <= num; a++) {
+		for (int w = 0; w <= W; w++) {
+			if (a == 0 || w == 0)
+				k_matrix[a][w] = 0;
+			else if (wt[a - 1] <= w)
+				k_matrix[a][w] = max(value[a - 1] + k_matrix[a - 1][w - wt[a - 1]], k_matrix[a - 1][w]);
+			else
+				k_matrix[a][w] = k_matrix[a - 1][w];
+		}
+	}
+
+	return k_matrix[num][W];
 }
 
 int main() {
-  int n, W;
-  std::cin >> W >> n;
-  vector<int> w(n);
-  for (int i = 0; i < n; i++) {
-    std::cin >> w[i];
-  }
-  std::cout << optimal_weight(W, w) << '\n';
+	int num, Cap;
+	cin >> Cap >> num;
+
+	vector<int> Val(num);
+	vector<int> Wt(num);
+	int Temp;
+	for (size_t a = 0; a < num; a++) {
+		cin >> Temp;
+		Val[a] = Wt[a] = Temp;
+	}
+	cout << KnapSack_amount(Cap, Val, Wt, num) << endl;
 }
